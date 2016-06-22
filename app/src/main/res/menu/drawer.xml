@@ -4,38 +4,48 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/inbox"
+            android:icon="@drawable/ic_drone"
+            android:id="@+id/MyDrones"
             android:checked="false"
-            android:title="inbox" />
+            android:title="Meus Drones" />
 
         <item
-            android:id="@+id/starred"
+            android:icon="@drawable/ic_cloudy"
+            android:id="@+id/weather"
             android:checked="false"
-            android:title="stared" />
+            android:title="Condições climaticas" />
 
         <item
-            android:id="@+id/sent_mail"
+            android:icon="@drawable/ic_place_black_24px"
+            android:id="@+id/places"
             android:checked="false"
-            android:title="enviar email" />
+            android:title="Lugares" />
 
         <item
-            android:id="@+id/drafts"
+            android:icon="@drawable/ic_group_black_24px"
+            android:id="@+id/friends"
             android:checked="false"
-            android:title="drafts" />
+            android:title="Amigos" />
+
+        <item
+            android:title="Perfil">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:icon="@drawable/ic_account_box_black_24dp"
+                        android:id="@+id/MyProfile"
+                        android:checked="false"
+                        android:title="Meu perfil" />
+                    <item
+                        android:icon="@drawable/ic_settings_black_24dp"
+                        android:id="@+id/settings"
+                        android:checked="false"
+                        android:title="Configurações" />
+                </group>
+            </menu>
+        </item>
 
 
-        <item
-            android:id="@+id/allmail"
-            android:checked="false"
-            android:title="todos os email" />
-        <item
-            android:id="@+id/trash"
-            android:checked="false"
-            android:title="lixo" />
-        <item
-            android:id="@+id/spam"
-            android:checked="false"
-            android:title="spam" />
 
     </group>
 
