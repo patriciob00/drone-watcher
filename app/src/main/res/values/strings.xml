@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Drone Watcher</string>
+    <string name="Ultimos_Voos">Ùltimos Vôos</string>
+    <string name="best_places">Melhores Locais</string>
+    <string name="notes">Mensagens</string>
+    <string name="google_maps_key">AIzaSyBF2igTef834D8Q3MOLVqY3KNbH-XL5oJA</string>
 </resources>

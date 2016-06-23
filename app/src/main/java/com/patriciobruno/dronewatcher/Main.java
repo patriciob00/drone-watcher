@@ -1,5 +1,6 @@
 package com.patriciobruno.dronewatcher;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -34,17 +35,12 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        /*navHeader = ( RelativeLayout ) findViewById( R.id.headerBackground);*/
-        time = (TextView ) findViewById( R.id.timeView);
         SetToolbar();
         SetNavDrawer();
-        setHourView();
-        /*updateHeaderBackground();*/
     }
 
     @Override
     protected void onResume() {
-        setHourView();
 //        updateHeaderBackground();
         super.onResume();
     }
@@ -68,8 +64,32 @@ public class Main extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                item.setChecked( true );
-                Snackbar.make(content, item.getTitle()+"pressed", Snackbar.LENGTH_LONG).show();
+                switch (item.getItemId()) {
+                    case R.id.MyDrones:
+                        item.setChecked( true );
+                        break;
+                    case R.id.weather:
+                        item.setChecked( true );
+                        Intent intent = new Intent(Main.this, map.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.places:
+                        item.setChecked( true );
+                        break;
+                    case R.id.messages:
+                        item.setChecked( true );
+                        break;
+                    case R.id.friends:
+                        item.setChecked( true );
+                        break;
+                    case R.id.MyProfile:
+                        item.setChecked( true );
+                        break;
+                    case R.id.settings:
+                        item.setChecked( true );
+                        break;
+                }
+                Snackbar.make(content, item.getItemId()+"pressed", Snackbar.LENGTH_LONG).show();
                 //onNavDrawerItemSelected(item);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -91,35 +111,13 @@ public class Main extends AppCompatActivity {
         String now = dateFormat_hora.format(data_atual);
         int time = Integer.parseInt( now );
 
-        if ( time <= 12 ) {
+        if ( time >= 5 && time <= 12 ) {
              return R.drawable.day_wallpaper;
         } else {
-            if ( time < 18) {
+            if ( time > 12 && time < 18) {
                 return R.drawable.afternoon_wallpaper;
             } else return R.drawable.night_wallpaper;
         }
-    }
-
-    public void updateHour () {
-        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
-        Date data = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(data);
-        Date data_atual = cal.getTime();
-        String now = dateFormat_hora.format(data_atual);
-        time.setText(now.toString());
-    }
-
-    public void setHourView () {
-        final Handler h = new Handler();
-        final int delay = 1000; //milliseconds
-
-        h.postDelayed(new Runnable(){
-            public void run(){
-                updateHour();
-                h.postDelayed(this, delay);
-            }
-        }, delay);
     }
 
     @Override

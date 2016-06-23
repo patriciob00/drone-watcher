@@ -22,6 +22,12 @@
             android:title="Lugares" />
 
         <item
+            android:icon="@drawable/ic_mail_outline_black_24dp"
+            android:id="@+id/messages"
+            android:checked="false"
+            android:title="Mensagens" />
+
+        <item
             android:icon="@drawable/ic_group_black_24px"
             android:id="@+id/friends"
             android:checked="false"

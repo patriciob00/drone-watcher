@@ -13,15 +13,28 @@
 
         <include layout="@layout/app_bar"
             android:id="@+id/toolbar_main"/>
+
         <!-- Conteúdo: layout de marcação para fragments -->
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/timeView"/>
+
+            <include layout="@layout/main_content"
+                android:id="@+id/main_content" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:elevation="4dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@color/colorPrimary"
+                app:fabSize="normal"
+                android:layout_gravity="end|bottom"
+                app:useCompatPadding="true"
+                app:srcCompat="@drawable/ic_add_white_24px"
+                android:id="@+id/fab_add"
+                app:backgroundTint="@color/colorPrimary" />
         </FrameLayout>
 
     </LinearLayout>
