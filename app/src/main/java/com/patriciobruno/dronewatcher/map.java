@@ -2,6 +2,7 @@ package com.patriciobruno.dronewatcher;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -27,11 +28,13 @@ public class map extends AppCompatActivity implements OnMapReadyCallback, Locati
     private Location location;
     private double latitude, longitude;
     private Toolbar toolbar;
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
+        SetToolbar();
         setMap();
         getGpsPosition();
     }
@@ -41,37 +44,25 @@ public class map extends AppCompatActivity implements OnMapReadyCallback, Locati
         mapFragment.getMapAsync(this);
     }
 
+    public String setToolbarText () {
+        data = getIntent();
+        String title = data.getStringExtra("title");
+        if (title != "") {
+            return title;
+        } else {
+            return "Mapa";
+        }
+    }
+
     public void SetToolbar() {
         toolbar = (Toolbar) findViewById(R.id.map_bar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
+            actionBar.setTitle(setToolbarText());
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        if (lm != null) {
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        googleMap.setMyLocationEnabled( true );
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Bruno"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 11));
     }
 
     public void getGpsPosition() {
@@ -98,6 +89,30 @@ public class map extends AppCompatActivity implements OnMapReadyCallback, Locati
             return;
         }
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 60000, this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if (lm != null) {
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                googleMap.setMyLocationEnabled( true );
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Bruno"));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 11));
+            }
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
     }
 
     @Override
